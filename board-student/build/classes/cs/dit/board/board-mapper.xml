@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="cs.dit.board">
+
+	<select id="selectOne" resultType="board">
+	  SELECT * FROM board WHERE bcode = #{bcode}
+	</select>
+	
+	<select id="selectAll" resultType="board">
+	  SELECT * FROM board ORDER BY bcode desc LIMIT #(page), #{numOfRecords}
+	</select>
+	
+	<select id="insert" resultType="board">
+	  INSERT INTO board(SUBJECT, CONTENT, WRITER, REGDATE, filename)
+	  VALUES(#{subject}, #{content}, #{writer}, SYSDATE(), #{filename})
+	</select>
+	
+	<select id="recordCount" resultType="int">
+	  SELECT COUNT(bcode) FROM board
+	</select>
+	
+	<update id ="update" parameterType="board">
+	  UPDATE board SET subject = #{subject}, content = #{filename}
+	  	writer = #{writer}, regDate = SYSDATE(), filename= #{filename}
+	  	WHERE bcode = #{bcode}
+	</update>
+	
+	<delete id="deleter" parameterType="int">
+	  DELETE FROM board WHERE bcode = #{bcode}
+	</delete>
+	
+</mapper>
